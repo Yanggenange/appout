@@ -72,6 +72,7 @@ public class HandleDataController extends BaseController{
     @ResponseBody
     public HandleData create(@RequestBody HandleData handleData) throws Exception {
         handleDataService.insert(handleData);
+        logger.info("adssd");
         return handleData;
     }
 
