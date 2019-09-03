@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.talkingdata.tds.dao.TagDicDao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.talkingdata.tds.entity.TagDic" >
+    <id column="id" property="id" />
+    <result column="tag_id" property="tagId" />
+    <result column="code" property="code" />
+    <result column="name" property="name" />
+    <result column="name_en" property="nameEn" />
+    <result column="parent_code" property="parentCode" />
+    <result column="description" property="description" />
+    <result column="level" property="level" />
+    <result column="tag_path" property="tagPath" />
+    <result column="is_leaf" property="isLeaf" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+
+  <!-- tag_dic table all fields -->
+  <sql id="Base_Column_List" >
+     `id`,  `code`, `name`, `name_en`, `parent_code`,  `description`,  `is_leaf`, `create_time`, `update_time`
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and `id` ${idOperator} #{id}
+      </if>
+      <if test="tagId != null" >
+        and `tag_id` ${tagIdOperator} #{tagId}
+      </if>
+      <if test="code != null" >
+        and `code` ${codeOperator} #{code}
+      </if>
+      <if test="name != null" >
+        and `name` ${nameOperator} #{name}
+      </if>
+      <if test="nameEn != null" >
+        and `name_en` ${nameEnOperator} #{nameEn}
+      </if>
+      <if test="parentCode != null" >
+        and `parent_code` ${parentCodeOperator} #{parentCode}
+      </if>
+      <if test="description != null" >
+        and `description` ${descriptionOperator} #{description}
+      </if>
+      <if test="level != null" >
+        and `level` ${levelOperator} #{level}
+      </if>
+      <if test="tagPath != null" >
+        and `tag_path` ${tagPathOperator} #{tagPath}
+      </if>
+      <if test="isLeaf != null" >
+        and `is_leaf` ${isLeafOperator} #{isLeaf}
+      </if>
+      <if test="createTime != null" >
+        and `create_time` ${createTimeOperator} #{createTime}
+      </if>
+      <if test="createTime1 != null" >
+        and `create_time` &gt;= #{createTime1}
+      </if>
+      <if test="createTime2 != null" >
+        and `create_time` &lt;= #{createTime2}
+      </if>
+      <if test="updateTime != null" >
+        and `update_time` ${updateTimeOperator} #{updateTime}
+      </if>
+      <if test="updateTime1 != null" >
+        and `update_time` &gt;= #{updateTime1}
+      </if>
+      <if test="updateTime2 != null" >
+        and `update_time` &lt;= #{updateTime2}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.talkingdata.tds.entity.TagDic" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tag_dic(<include refid="Base_Column_List" />)
+    values (#{id}, #{tagId}, #{code}, #{name}, #{nameEn}, #{parentCode}, #{description}, #{level}, #{tagPath}, #{isLeaf}, #{createTime}, #{updateTime})
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.talkingdata.tds.entity.TagDic" >
+    update tag_dic
+       set `tag_id` = #{tagId},
+           `code` = #{code},
+           `name` = #{name},
+           `name_en` = #{nameEn},
+           `parent_code` = #{parentCode},
+           `description` = #{description},
+           `level` = #{level},
+           `tag_path` = #{tagPath},
+           `is_leaf` = #{isLeaf},
+           `create_time` = #{createTime},
+           `update_time` = #{updateTime}
+     where `id` = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.talkingdata.tds.entity.TagDic" >
+    update tag_dic
+    <set >
+      <if test="tagId != null" >
+        `tag_id` = #{tagId},
+      </if>
+      <if test="code != null" >
+        `code` = #{code},
+      </if>
+      <if test="name != null" >
+        `name` = #{name},
+      </if>
+      <if test="nameEn != null" >
+        `name_en` = #{nameEn},
+      </if>
+      <if test="parentCode != null" >
+        `parent_code` = #{parentCode},
+      </if>
+      <if test="description != null" >
+        `description` = #{description},
+      </if>
+      <if test="level != null" >
+        `level` = #{level},
+      </if>
+      <if test="tagPath != null" >
+        `tag_path` = #{tagPath},
+      </if>
+      <if test="isLeaf != null" >
+        `is_leaf` = #{isLeaf},
+      </if>
+      <if test="createTime != null" >
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null" >
+        `update_time` = #{updateTime},
+      </if>
+    </set>
+     where `id` = #{id}
+  </update>
+
+  <!-- 根据id查询 tag_dic -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" /> 
+      from tag_dic
+     where `id` = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tag_dic
+     where `id` = #{value}
+
+  </delete>
+
+  <!-- tag_dic 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.talkingdata.tds.base.page.BasePage">
+    select count(1) from tag_dic
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询tag_dic列表 -->
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.talkingdata.tds.base.page.BasePage">
+    select <include refid="Base_Column_List"/>
+      from tag_dic
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+       ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+  </select>
+
+  <!--批量插入记录-->
+    <insert id="batchInsert" parameterType="com.talkingdata.tds.entity.TagDic">
+        INSERT INTO tag_dic(<include refid="Base_Column_List" />) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.tagId}, #{item.code}, #{item.name}, #{item.nameEn}, #{item.parentCode}, #{item.description}, #{item.level}, #{item.tagPath}, #{item.isLeaf}, #{item.createTime}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+
+    <!-- 批量删除记录 -->
+    <delete id="batchDeleteByKeys" parameterType="java.lang.Integer">
+        delete from tag_dic  where `id` in
+        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+            #{item}
+        </foreach>
+        
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.talkingdata.tds.dao.HandleDataDao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.talkingdata.tds.entity.HandleData" >
+    <id column="id" property="id" />
+    <result column="monitor_date" property="monitorDate" />
+    <result column="batch" property="batch" />
+    <result column="batch_num" property="batchNum" />
+    <result column="gid" property="gid" />
+    <result column="app_name" property="appName" />
+    <result column="app_name_en" property="appNameEn" />
+    <result column="package_name" property="packageName" />
+    <result column="package_hash" property="packageHash" />
+    <result column="icon_url" property="iconUrl" />
+    <result column="developer" property="developer" />
+    <result column="reference_url" property="referenceUrl" />
+    <result column="type_name" property="typeName" />
+    <result column="type_code" property="typeCode" />
+    <result column="inspect_name" property="inspectName" />
+    <result column="inspect_code" property="inspectCode" />
+    <result column="tips" property="tips" />
+    <result column="status" property="status" />
+    <result column="failure_cause" property="failureCause" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+
+  <!-- handle_data table all fields -->
+  <sql id="Base_Column_List" >
+     `id`, `monitor_date`, `batch`, `batch_num`, `gid`, `app_name`, `app_name_en`, `package_name`, `package_hash`, `icon_url`, `developer`, `reference_url`, `type_name`, `type_code`, `inspect_name`, `inspect_code`, `tips`, `status`, `failure_cause`, `create_time`, `update_time`
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and `id` ${idOperator} #{id}
+      </if>
+      <if test="monitorDate != null" >
+        and `monitor_date` ${monitorDateOperator} #{monitorDate}
+      </if>
+      <if test="monitorDate1 != null" >
+        and `monitor_date` &gt;= #{monitorDate1}
+      </if>
+      <if test="monitorDate2 != null" >
+        and `monitor_date` &lt;= #{monitorDate2}
+      </if>
+      <if test="batch != null" >
+        and `batch` ${batchOperator} #{batch}
+      </if>
+      <if test="batchNum != null" >
+        and `batch_num` ${batchNumOperator} #{batchNum}
+      </if>
+      <if test="gid != null" >
+        and `gid` ${gidOperator} #{gid}
+      </if>
+      <if test="appName != null" >
+        and `app_name` like concat('%',#{appName},'%')
+      </if>
+      <if test="appNameEn != null" >
+        and `app_name_en` ${appNameEnOperator} #{appNameEn}
+      </if>
+      <if test="packageName != null" >
+        and `package_name` like concat('%',#{packageName},'%')
+      </if>
+      <if test="packageHash != null" >
+        and `package_hash` like concat('%',#{packageHash},'%')
+      </if>
+      <if test="iconUrl != null" >
+        and `icon_url` ${iconUrlOperator} #{iconUrl}
+      </if>
+      <if test="developer != null" >
+        and `developer` ${developerOperator} #{developer}
+      </if>
+      <if test="referenceUrl != null" >
+        and `reference_url` ${referenceUrlOperator} #{referenceUrl}
+      </if>
+      <if test="typeName != null" >
+        and `type_name` like concat('%',#{typeName},'%')
+      </if>
+      <if test="typeCode != null" >
+        and `type_code` ${typeCodeOperator} #{typeCode}
+      </if>
+      <if test="inspectName != null" >
+        and `inspect_name` ${inspectNameOperator} #{inspectName}
+      </if>
+      <if test="inspectCode != null" >
+        and `inspect_code` ${inspectCodeOperator} #{inspectCode}
+      </if>
+      <if test="tips != null" >
+        and `tips` ${tipsOperator} #{tips}
+      </if>
+      <if test="status != null and status !=''" >
+        and `status` ${statusOperator} #{status}
+      </if>
+      <if test="failureCause != null" >
+        and `failure_cause` ${failureCauseOperator} #{failureCause}
+      </if>
+      <if test="createTime != null" >
+        and `create_time` ${createTimeOperator} #{createTime}
+      </if>
+      <if test="createTime1 != null" >
+        and `create_time` &gt;= #{createTime1}
+      </if>
+      <if test="createTime2 != null" >
+        and `create_time` &lt;= #{createTime2}
+      </if>
+      <if test="updateTime != null" >
+        and `update_time` ${updateTimeOperator} #{updateTime}
+      </if>
+      <if test="updateTime1 != null" >
+        and `update_time` &gt;= #{updateTime1}
+      </if>
+      <if test="updateTime2 != null" >
+        and `update_time` &lt;= #{updateTime2}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.talkingdata.tds.entity.HandleData" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into handle_data(<include refid="Base_Column_List" />)
+    values (#{id}, #{monitorDate}, #{batch}, #{batchNum}, #{gid}, #{appName}, #{appNameEn}, #{packageName}, #{packageHash}, #{iconUrl}, #{developer}, #{referenceUrl}, #{typeName}, #{typeCode}, #{inspectName}, #{inspectCode}, #{tips}, #{status}, #{failureCause}, #{createTime}, #{updateTime})
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.talkingdata.tds.entity.HandleData" >
+    update handle_data
+       set `monitor_date` = #{monitorDate},
+           `batch` = #{batch},
+           `batch_num` = #{batchNum},
+           `gid` = #{gid},
+           `app_name` = #{appName},
+           `app_name_en` = #{appNameEn},
+           `package_name` = #{packageName},
+           `package_hash` = #{packageHash},
+           `icon_url` = #{iconUrl},
+           `developer` = #{developer},
+           `reference_url` = #{referenceUrl},
+           `type_name` = #{typeName},
+           `type_code` = #{typeCode},
+           `inspect_name` = #{inspectName},
+           `inspect_code` = #{inspectCode},
+           `tips` = #{tips},
+           `status` = #{status},
+           `failure_cause` = #{failureCause},
+           `create_time` = #{createTime},
+           `update_time` = #{updateTime}
+     where `id` = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.talkingdata.tds.entity.HandleData" >
+    update handle_data
+    <set >
+      <if test="monitorDate != null" >
+        `monitor_date` = #{monitorDate},
+      </if>
+      <if test="batch != null" >
+        `batch` = #{batch},
+      </if>
+      <if test="batchNum != null" >
+        `batch_num` = #{batchNum},
+      </if>
+      <if test="gid != null" >
+        `gid` = #{gid},
+      </if>
+      <if test="appName != null" >
+        `app_name` = #{appName},
+      </if>
+      <if test="appNameEn != null" >
+        `app_name_en` = #{appNameEn},
+      </if>
+      <if test="packageName != null" >
+        `package_name` = #{packageName},
+      </if>
+      <if test="packageHash != null" >
+        `package_hash` = #{packageHash},
+      </if>
+      <if test="iconUrl != null" >
+        `icon_url` = #{iconUrl},
+      </if>
+      <if test="developer != null" >
+        `developer` = #{developer},
+      </if>
+      <if test="referenceUrl != null" >
+        `reference_url` = #{referenceUrl},
+      </if>
+      <if test="typeName != null" >
+        `type_name` = #{typeName},
+      </if>
+      <if test="typeCode != null" >
+        `type_code` = #{typeCode},
+      </if>
+      <if test="inspectName != null" >
+        `inspect_name` = #{inspectName},
+      </if>
+      <if test="inspectCode != null" >
+        `inspect_code` = #{inspectCode},
+      </if>
+      <if test="tips != null" >
+        `tips` = #{tips},
+      </if>
+      <if test="status != null" >
+        `status` = #{status},
+      </if>
+      <if test="failureCause != null" >
+        `failure_cause` = #{failureCause},
+      </if>
+      <if test="createTime != null" >
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null" >
+        `update_time` = #{updateTime},
+      </if>
+    </set>
+     where `id` = #{id}
+  </update>
+
+  <!-- 根据id查询 handle_data -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" /> 
+      from handle_data
+     where `id` = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from handle_data
+     where `id` = #{value}
+
+  </delete>
+
+  <!-- handle_data 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.talkingdata.tds.base.page.BasePage">
+    select count(1) from handle_data
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询handle_data列表 -->
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.talkingdata.tds.base.page.BasePage">
+    select <include refid="Base_Column_List"/>
+      from handle_data
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+       ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+  </select>
+
+  <!--批量插入记录-->
+    <insert id="batchInsert" parameterType="com.talkingdata.tds.entity.HandleData">
+        INSERT INTO handle_data(<include refid="Base_Column_List" />) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.monitorDate}, #{item.batch}, #{item.batchNum}, #{item.gid}, #{item.appName}, #{item.appNameEn}, #{item.packageName}, #{item.packageHash}, #{item.iconUrl}, #{item.developer}, #{item.referenceUrl}, #{item.typeName}, #{item.typeCode}, #{item.inspectName}, #{item.inspectCode}, #{item.tips}, #{item.status}, #{item.failureCause}, #{item.createTime}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+
+    <!-- 批量删除记录 -->
+    <delete id="batchDeleteByKeys" parameterType="java.lang.Integer">
+        delete from handle_data  where `id` in
+        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+            #{item}
+        </foreach>
+        
+    </delete>
+
+
+</mapper>
